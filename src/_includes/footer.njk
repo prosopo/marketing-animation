@@ -1,0 +1,46 @@
+<footer class="bg-white rounded-lg">
+    <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+        <div class="sm:flex sm:items-center sm:justify-between">
+            <a href="/" class="flex items-center mb-4 sm:mb-0">
+                <img src="/static/prosopo-logo-black.svg" class="h-8 mr-3" alt="Prosopo Logo"/>
+            </a>
+            <ul class="list-none flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+                <li>
+                    <a href="https://uk.linkedin.com/company/prosopo" target="_blank" class="mr-4 hover:underline md:mr-6 ">Linkedin</a>
+                </li>
+                <li>
+                    <a href="/terms-and-conditions" class="mr-4 hover:underline md:mr-6 ">Terms</a>
+                </li>
+                <li>
+                    <a href="/privacy-policy" class="mr-4 hover:underline md:mr-6">Privacy Policy</a>
+                </li>
+                <li>
+                    <a href="/cookie-policy" class="mr-4 hover:underline md:mr-6 ">Cookie Policy</a>
+                </li>
+                <li>
+                    <a href="/contact" class="hover:underline">Contact</a>
+                </li>
+            </ul>
+        </div>
+{#        <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8"/>#}
+        <div class="m-auto">&nbsp;</div>
+        <div class="copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <ul class="list-none li-space-lg p-small">
+                            <li>
+                                <a>Copyright <span id="copyright-year"></span> © Prosopo</a>
+                            </li>
+                            <script>
+                                document
+                                    .getElementById("copyright-year")
+                                    .innerHTML = new Date().getFullYear();
+                            </script>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
