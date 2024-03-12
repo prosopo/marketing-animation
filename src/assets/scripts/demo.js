@@ -39,6 +39,15 @@ document.addEventListener('DOMContentLoaded', () => {
     window.progressBarMax = getMaxWidth()
 })
 
+// create a common function to retrieve the maximum width of the progress bar
+const getProgressWidth = () => {
+    const demo = document.getElementById('demo');
+    const maxWidth = Math.max(Number(getComputedStyle(demo).width.replace(/px.*/, '')) - 2, 420);
+    window.progressBarMax = maxWidth;
+  
+    return maxWidth;
+}
+
 const getIncrement = (maxWidth) => {
     return Math.floor(maxWidth / PROGRESS_STEPS)
 }
@@ -47,10 +56,7 @@ const getMaxWidth = () => {
     if (window.progressBarMax) {
         return window.progressBarMax
     }
-    const demo = document.getElementById('demo')
-    const maxWidth = Math.max(Number(getComputedStyle(demo).width.replace(/px.*/, '')) - 2, 420)
-    window.progressBarMax = maxWidth
-    return maxWidth
+    return getProgressWidth();
 }
 
 const getProgressBar = () => {
@@ -65,6 +71,9 @@ const handleEvent = () => {
         const maxWidth = getMaxWidth()
         const newWidth = Number(width) + getIncrement(maxWidth)
         if (newWidth > maxWidth) {
+            // enable the checkbox when the progress bar is not progressing
+            document.getElementById("procaptchaCheckbox").disabled = false;
+            
             window.checkBox()
             window.progressBarFinished = true
             const procaptchaDemo = document.getElementById('procaptcha-demo')
@@ -73,6 +82,15 @@ const handleEvent = () => {
             procaptchaDemo.classList.remove('animate-pulse')
             removeEventListeners()
         } else {
+            // disable the checkbox while the progress bar is in progress
+            document.getElementById("procaptchaCheckbox").disabled = true;
+
+            // reset the progress bar when the window size changes.
+            window.addEventListener('resize', () => { 
+              getProgressWidth();
+              window.progressBar = '0px';
+            });
+
             window.progressBar = newWidth
             const newStyle = { ...elem.style, width: `${newWidth}px`, height: '128px' }
             //remove empty style properties
