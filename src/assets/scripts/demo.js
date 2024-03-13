@@ -37,12 +37,28 @@ document.addEventListener('DOMContentLoaded', () => {
         addEventListener(eventName, handleEvent)
     }
     window.progressBarMax = getMaxWidth()
-})
+});
+
+// reset the progress bar when the window size changes.
+window.addEventListener("resize", () => {
+    const currentWidth = window.innerWidth; // current screen size
+    const previousWidth = window.prevWidth; // previous screen size
+    
+    // if the current screen size does not match with the previous screen size
+    if (currentWidth !== previousWidth) {
+        getProgressWidth(); // set the new max width for the progress bar
+        window.progressBar = 0; // reset the width of the progress bar
+        window.prevWidth = window.innerWidth; // update the previous screen size
+
+        const progressElement = getProgressBar(); // get the progress bar element
+        progressElement.removeAttribute("style"); // removed progress bar styles
+    }
+});
 
 // create a common function to retrieve the maximum width of the progress bar
 const getProgressWidth = () => {
     const demo = document.getElementById('demo');
-    const maxWidth = Math.max(Number(getComputedStyle(demo).width.replace(/px.*/, '')) - 2, 420);
+    const maxWidth = Math.max(Number(getComputedStyle(demo).width.replace(/px.*/, '')));
     window.progressBarMax = maxWidth;
   
     return maxWidth;
@@ -84,12 +100,6 @@ const handleEvent = () => {
         } else {
             // disable the checkbox while the progress bar is in progress
             document.getElementById("procaptchaCheckbox").disabled = true;
-
-            // reset the progress bar when the window size changes.
-            window.addEventListener('resize', () => { 
-              getProgressWidth();
-              window.progressBar = '0px';
-            });
 
             window.progressBar = newWidth
             const newStyle = { ...elem.style, width: `${newWidth}px`, height: '128px' }
