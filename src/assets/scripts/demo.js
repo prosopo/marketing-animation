@@ -130,9 +130,11 @@ const handleEvent = () => {
         const getCheckboxElement = document.getElementById("procaptchaCheckbox");
 
         if (newWidth > maxWidth) {
+          setTimeout(() => {
             // enable the checkbox when the progress bar is not progressing
             getCheckboxElement.disabled = false;
             getCheckboxElement.style.cursor = "pointer";
+document.getElementById('demo').style.backgroundColor = 'white';
 
             window.checkBox()
             window.progressBarFinished = true
@@ -140,6 +142,7 @@ const handleEvent = () => {
             progressElem.classList.remove('animate-pulse')
             procaptchaDemo.classList.remove('animate-pulse')
             removeEventListeners()
+          }, 2000);
         } else {
 
             // disable the checkbox while the progress bar is in progress
