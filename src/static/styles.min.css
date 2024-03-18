@@ -629,18 +629,11 @@ video {
 .relative {
   position: relative;
 }
-.inset-y-1\/4 {
-  top: 25%;
-  bottom: 25%;
-}
-.left-0 {
-  left: 0px;
-}
 .right-0 {
   right: 0px;
 }
-.top-0 {
-  top: 0px;
+.top-\[-124px\] {
+  top: -124px;
 }
 .z-0 {
   z-index: 0;
@@ -693,17 +686,11 @@ video {
 .ml-4 {
   margin-left: 1rem;
 }
-.ml-48 {
-  margin-left: 12rem;
-}
 .mr-3 {
   margin-right: 0.75rem;
 }
 .mr-4 {
   margin-right: 1rem;
-}
-.mr-48 {
-  margin-right: 12rem;
 }
 .mt-10 {
   margin-top: 2.5rem;
@@ -726,9 +713,6 @@ video {
 .block {
   display: block;
 }
-.inline-block {
-  display: inline-block;
-}
 .inline {
   display: inline;
 }
@@ -750,9 +734,6 @@ video {
 .hidden {
   display: none;
 }
-.h-12 {
-  height: 3rem;
-}
 .h-4 {
   height: 1rem;
 }
@@ -762,19 +743,17 @@ video {
 .h-8 {
   height: 2rem;
 }
-.h-fit {
-  height: -moz-fit-content;
-  height: fit-content;
+.h-\[128px\] {
+  height: 128px;
+}
+.h-\[35px\] {
+  height: 35px;
 }
 .h-full {
   height: 100%;
 }
-.h-max {
-  height: -moz-max-content;
-  height: max-content;
-}
-.w-1 {
-  width: 0.25rem;
+.w-0 {
+  width: 0px;
 }
 .w-4 {
   width: 1rem;
@@ -782,11 +761,11 @@ video {
 .w-6 {
   width: 1.5rem;
 }
-.w-\[420px\] {
-  width: 420px;
-}
 .w-full {
   width: 100%;
+}
+.w-screen {
+  width: 100vw;
 }
 .max-w-2xl {
   max-width: 42rem;
@@ -796,9 +775,6 @@ video {
 }
 .max-w-\[420px\] {
   max-width: 420px;
-}
-.max-w-full {
-  max-width: 100%;
 }
 .max-w-md {
   max-width: 28rem;
@@ -855,30 +831,20 @@ video {
 .justify-between {
   justify-content: space-between;
 }
-.justify-items-stretch {
-  justify-items: stretch;
-}
 .gap-12 {
   gap: 3rem;
 }
 .gap-2 {
   gap: 0.5rem;
 }
+.gap-3 {
+  gap: 0.75rem;
+}
 .gap-y-10 {
   row-gap: 2.5rem;
 }
 .gap-y-3 {
   row-gap: 0.75rem;
-}
-.space-x-2 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(0.5rem * var(--tw-space-x-reverse));
-  margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
-}
-.space-x-4 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(1rem * var(--tw-space-x-reverse));
-  margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
 }
 .overflow-hidden {
   overflow: hidden;
@@ -928,18 +894,21 @@ video {
 .bg-inherit {
   background-color: inherit;
 }
-.bg-transparent {
-  background-color: transparent;
-}
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
-.bg-opacity-0 {
-  --tw-bg-opacity: 0;
-}
 .bg-opacity-50 {
   --tw-bg-opacity: 0.5;
+}
+.bg-\[radial-gradient\(circle\2c rgba\(78\2c 67\2c 159\2c 96\)_0\%\2c rgba\(235\2c 66\2c 126\2c 100\)_\$\{newValue\}\%\)\] {
+  background-image: radial-gradient(circle,rgba(78,67,159,96) 0%,rgba(235,66,126,100) ${newValue}%);
+}
+.bg-\[radial-gradient\(circle\2c rgba\(78\2c 67\2c 159\2c 96\)_0\%\2c rgba\(235\2c 66\2c 126\2c 100\)_100\%\)\] {
+  background-image: radial-gradient(circle,rgba(78,67,159,96) 0%,rgba(235,66,126,100) 100%);
+}
+.bg-\[radial-gradient\(circle\2c rgba\(78\2c 67\2c 159\2c 96\)_0\%\2c rgba\(235\2c 66\2c 126\2c \$\{newValue\}\)_100\%\)\] {
+  background-image: radial-gradient(circle,rgba(78,67,159,96) 0%,rgba(235,66,126,${newValue}) 100%);
 }
 .object-cover {
   -o-object-fit: cover;
@@ -970,9 +939,17 @@ video {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
 }
+.px-7 {
+  padding-left: 1.75rem;
+  padding-right: 1.75rem;
+}
 .px-8 {
   padding-left: 2rem;
   padding-right: 2rem;
+}
+.py-16 {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
 }
 .py-2 {
   padding-top: 0.5rem;
@@ -998,9 +975,6 @@ video {
 }
 .pt-12 {
   padding-top: 3rem;
-}
-.pt-16 {
-  padding-top: 4rem;
 }
 .pt-32 {
   padding-top: 8rem;
@@ -1168,9 +1142,23 @@ html {
     -webkit-appearance: none;
        -moz-appearance: none;
             appearance: none;
-    cursor: pointer;
     margin: 0px;
     border: 1px solid rgb(189, 189, 189);
+    accent-color: black;
+}
+
+.svgDiv {
+    max-width: 100%;
+    max-height: 100%;
+    overflow: hidden;
+    height: -moz-fit-content;
+    height: fit-content;
+}
+
+.animate-pulse {
+    display: block;
+    animation: start 1s ease 0s 2 alternate;
+    transition: all 2s ease 0s
 }
 
 .hover\:border-black:hover {
@@ -1263,8 +1251,16 @@ html {
     margin-top: 0px;
   }
 
+  .sm\:block {
+    display: block;
+  }
+
   .sm\:flex {
     display: flex;
+  }
+
+  .sm\:hidden {
+    display: none;
   }
 
   .sm\:items-center {

@@ -31,24 +31,29 @@ const EVENT_DEFS = [
 console.log(EVENT_DEFS)
 
 document.addEventListener('DOMContentLoaded', () => {
-    resetScroll({ duration: 500 });
+    resetScroll({duration: 500});
     for (const eventName of EVENT_DEFS) {
         console.log("adding event for ", eventName)
         addEventListener(eventName, handleEvent)
+        addEventListener(eventName, handleEventGradient)
     }
     window.prevWidth = window.innerWidth;
     window.progressSteps = window.innerWidth > 1000 ? 400 : 200; // set progress step according devices
+    window.progressEventCount = 0;
+    window.progressGradientDirection = 1;
+    window.progressGradientMin = 50
+    window.progressGradientMax = 100
 });
 
 // reset the progress bar when the window size changes.
 window.addEventListener("resize", () => {
     const currentWidth = window.innerWidth; // current screen size
     const previousWidth = window.prevWidth; // previous screen size
-    
+
     // if the current screen size does not match with the previous screen size
     if (currentWidth !== previousWidth) {
         window.progressSteps = window.innerWidth > 700 ? 400 : 200;
-        resetScroll({ duration: 1000 });
+        resetScroll({duration: 1000});
         getProgressWidth(); // set the new max width for the progress bar
         window.progressBar = '0'; // reset the width of the progress bar
         window.prevWidth = window.innerWidth; // update the previous screen size
@@ -58,9 +63,9 @@ window.addEventListener("resize", () => {
     }
 });
 
-const resetScroll = ({ duration = 1000 }) => {
+const resetScroll = ({duration = 1000}) => {
     window.resizeScrolling = true;  // set the flag to true when resizing triggers scrolling
-    window.scroll({ top: 0, behavior: 'smooth' });
+    window.scroll({top: 0, behavior: 'smooth'});
     setTimeout(() => {
         window.resizeScrolling = false;
     }, duration);
@@ -71,7 +76,7 @@ const getProgressWidth = () => {
     const demo = document.getElementById('demo');
     const maxWidth = Math.max(Number(getComputedStyle(demo).width.replace(/px.*/, '')));
     window.progressBarMax = maxWidth;
-  
+
     return maxWidth;
 }
 
@@ -86,15 +91,39 @@ const getMaxWidth = () => {
     return getProgressWidth();
 }
 
+const getDemoSection = () => {
+    return document.getElementById('demo-section')
+}
+
 const getProgressBar = () => {
     return document.getElementById('progress-bar')
 }
 
+const updateDemoSectionGradient = () => {
+
+    const demoSection = getDemoSection()
+    const oldValue = Number(demoSection.style.background.split(' ').slice(-1)[0].replace('%)', ''))
+    window.progressGradientDirection = oldValue > window.progressGradientMax ? -1 : oldValue < window.progressGradientMin ? 1 : window.progressGradientDirection
+    const appliedValue = oldValue + window.progressGradientDirection
+    demoSection.style = `background: radial-gradient(circle, rgba(78,67,159,96) 0%, rgba(235,66,126,100) ${appliedValue}%);`
+
+}
+
+const handleEventGradient = () => {
+    window.progressEventCount++
+    if (window.progressEventCount % 10 === 0) {
+        updateDemoSectionGradient()
+    }
+    return void 0
+}
+
 const handleEvent = () => {
-    console.log("event!")
+
     if (!window.progressBarFinished && !window.resizeScrolling) {
-        const elem = getProgressBar()
-        const width = window.progressBar || getComputedStyle(elem).width.replace(/px.*/, '')
+
+        const demoSection = getDemoSection()
+        const progressElem = getProgressBar()
+        const width = window.progressBar || getComputedStyle(progressElem).width.replace(/px.*/, '')
         const maxWidth = getMaxWidth()
         const newWidth = Number(width) + getIncrement(maxWidth)
         // get checkbox element
@@ -104,22 +133,28 @@ const handleEvent = () => {
             // enable the checkbox when the progress bar is not progressing
             getCheckboxElement.disabled = false;
             getCheckboxElement.style.cursor = "pointer";
-            
+
             window.checkBox()
             window.progressBarFinished = true
             const procaptchaDemo = document.getElementById('procaptcha-demo')
-            elem.classList.remove('animate-pulse')
-
+            progressElem.classList.remove('animate-pulse')
             procaptchaDemo.classList.remove('animate-pulse')
             removeEventListeners()
         } else {
+
             // disable the checkbox while the progress bar is in progress
             getCheckboxElement.disabled = true;
             getCheckboxElement.style.cursor = "not-allowed";
             getCheckboxElement.style.backgroundColor = "rgb(227 227 227)";
 
             window.progressBar = newWidth
-            const newStyle = { ...elem.style, width: `${newWidth}px`, height: '124px', border: '2px solid transparent', 'border-radius': '8px' }
+            const newStyle = {
+                ...progressElem.style,
+                width: `${newWidth}px`,
+                height: '124px',
+                border: '2px solid transparent',
+                'border-radius': '8px'
+            }
             //remove empty style properties
             Object.keys(newStyle).forEach((key) => {
                 if (!newStyle[key]) {
@@ -130,7 +165,7 @@ const handleEvent = () => {
             const newStyleStr = Object.entries(newStyle).reduce((acc, [key, value]) => {
                 return `${acc}${key}:${value};`
             }, '')
-            elem.setAttribute('style', newStyleStr)
+            progressElem.setAttribute('style', newStyleStr)
         }
     }
     return void 0
